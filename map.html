@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Map — The Field Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0D1B2A; font-family: 'DM Sans', sans-serif; }
+    #map { width: 100%; height: 420px; background: #0D1B2A; }
+
+    /* Leaflet dark overrides */
+    .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.6) saturate(0.4); }
+    .leaflet-container { background: #0D1B2A; }
+
+    /* Custom popup */
+    .leaflet-popup-content-wrapper {
+      background: #1a2d42;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 2px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    .leaflet-popup-tip { background: #1a2d42; }
+    .leaflet-popup-content { margin: 16px 18px; min-width: 200px; }
+    .popup-country {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #C9A84C;
+      margin-bottom: 8px;
+    }
+    .popup-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #F5F0E8;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .popup-author {
+      font-size: 12px;
+      color: rgba(245,240,232,0.5);
+      margin-bottom: 10px;
+    }
+    .popup-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #C9A84C;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .popup-link:hover { opacity: 0.7; }
+    .leaflet-control-zoom a {
+      background: #1a2d42 !important;
+      color: #F5F0E8 !important;
+      border-color: rgba(201,168,76,0.2) !important;
+    }
+    .leaflet-control-attribution {
+      background: rgba(13,27,42,0.8) !important;
+      color: rgba(245,240,232,0.3) !important;
+      font-size: 9px !important;
+    }
+    .leaflet-control-attribution a { color: rgba(201,168,76,0.5) !important; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/notion.js"></script>
+  <script>
+    const map = L.map('map', {
+      center: [15, 20],
+      zoom: 2,
+      zoomControl: true,
+      scrollWheelZoom: false
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Custom marker
+    function makeMarker(count) {
+      const size = count > 2 ? 18 : 12;
+      return L.divIcon({
+        className: '',
+        html: `<div style="
+          width:${size}px;height:${size}px;border-radius:50%;
+          background:#C9A84C;border:2px solid #F5F0E8;
+          box-shadow:0 0 12px rgba(201,168,76,0.5);
+        "></div>`,
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2]
+      });
+    }
+
+    // Geocode country name to lat/lng
+    async function geocodeCountry(country) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(country)}&format=json&limit=1`);
+        const data = await res.json();
+        if (data.length > 0) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+      } catch(e) {}
+      return null;
+    }
+
+    async function loadMap() {
+      const briefs = await fetchBriefs();
+      const parsed = briefs.map(parseBrief).filter(b => b.country);
+
+      // Group by country
+      const byCountry = {};
+      parsed.forEach(b => {
+        if (!byCountry[b.country]) byCountry[b.country] = [];
+        byCountry[b.country].push(b);
+      });
+
+      for (const [country, countryBriefs] of Object.entries(byCountry)) {
+        const coords = await geocodeCountry(country);
+        if (!coords) continue;
+
+        const popupHTML = countryBriefs.map(b => `
+          <div style="margin-bottom:${countryBriefs.length > 1 ? '12px' : '0'}">
+            <div class="popup-country">${b.country}</div>
+            <div class="popup-title">${b.title}</div>
+            <div class="popup-author">${b.author}</div>
+            <a class="popup-link" href="article.html?id=${b.id}">Read brief →</a>
+          </div>
+        `).join('<hr style="border:none;border-top:1px solid rgba(201,168,76,0.15);margin:12px 0;">');
+
+        L.marker(coords, { icon: makeMarker(countryBriefs.length) })
+          .addTo(map)
+          .bindPopup(popupHTML, { maxWidth: 260 });
+      }
+    }
+
+    loadMap();
+  </script>
+</body>
+</html>

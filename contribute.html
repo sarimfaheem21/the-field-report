@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contribute — The Field Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">The Field Report</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="briefs.html" class="nav-link">Briefs</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contribute.html" class="nav-link active">Contribute</a>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <span class="eyebrow">Contribute</span>
+    <h1>Write for The Field Report</h1>
+    <p>Open to all NYU School of Global Public Health students.</p>
+  </section>
+
+  <section class="prose-section">
+    <div class="prose">
+      <h2>What we're looking for</h2>
+      <p>400–600 word briefs summarizing a peer-reviewed paper from any country. The paper should connect to your concentration and ideally include a data visualization or tool component — Power BI, Tableau, GIS, R, Python.</p>
+
+      <h2>Guidelines</h2>
+      <ul>
+        <li>Paper must be peer-reviewed and publicly accessible</li>
+        <li>Brief must be original writing, not a summary of the abstract</li>
+        <li>Include a faculty reviewer from a relevant department</li>
+        <li>Tag your country and topic area when submitting</li>
+      </ul>
+
+      <h2>What you get</h2>
+      <p>Your name, program, and faculty reviewer credited publicly on the site. A real, faculty-reviewed writing sample for your portfolio and job applications.</p>
+    </div>
+  </section>
+
+  <section class="contribute-form-section">
+    <div class="section-header">
+      <span class="eyebrow">Get Started</span>
+      <h2>Submit your brief</h2>
+    </div>
+    <div class="contribute-form-wrap">
+      <p class="form-note">Fill out the form below and we'll be in touch within 48 hours.</p>
+      <!-- Replace action URL with your Google Form formResponse URL -->
+      <form action="YOUR_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" name="entry.NAME_FIELD" placeholder="Full name" required>
+          </div>
+          <div class="form-field">
+            <label>Program</label>
+            <input type="text" name="entry.PROGRAM_FIELD" placeholder="e.g. MPH Global Health '26">
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" name="entry.EMAIL_FIELD" placeholder="nyu.edu email" required>
+        </div>
+        <div class="form-field">
+          <label>Paper Title & DOI/Link</label>
+          <input type="text" name="entry.PAPER_FIELD" placeholder="Paper title and link">
+        </div>
+        <div class="form-field">
+          <label>Country the paper is from</label>
+          <input type="text" name="entry.COUNTRY_FIELD" placeholder="e.g. Ethiopia">
+        </div>
+        <div class="form-field">
+          <label>Faculty Reviewer (if confirmed)</label>
+          <input type="text" name="entry.REVIEWER_FIELD" placeholder="Name and department">
+        </div>
+        <div class="form-field">
+          <label>Anything else?</label>
+          <textarea name="entry.NOTES_FIELD" placeholder="Questions, notes, or context..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit →</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">The Field Report</span>
+      <span class="footer-sub">NYU School of Global Public Health · Student Initiative</span>
+    </div>
+    <div class="footer-right">
+      <p>Briefs represent student academic work, faculty reviewed.<br>Not peer-reviewed journal publications.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

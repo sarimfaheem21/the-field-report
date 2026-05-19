@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Briefs — The Field Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">The Field Report</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="briefs.html" class="nav-link active">Briefs</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contribute.html" class="nav-link">Contribute</a>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <span class="eyebrow">Archive</span>
+    <h1>All Briefs</h1>
+    <p>Student-written research briefs on global public health, faculty reviewed.</p>
+  </section>
+
+  <!-- TAG FILTER -->
+  <section class="filter-section">
+    <div class="filter-bar" id="tag-filters">
+      <button class="tag-btn active" data-tag="all">All</button>
+    </div>
+  </section>
+
+  <!-- BRIEFS LIST -->
+  <section class="briefs-list-section">
+    <div class="briefs-list" id="briefs-list">
+      <div class="loading-state">Loading briefs...</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">The Field Report</span>
+      <span class="footer-sub">NYU School of Global Public Health · Student Initiative</span>
+    </div>
+    <div class="footer-right">
+      <p>Briefs represent student academic work, faculty reviewed.<br>Not peer-reviewed journal publications.</p>
+    </div>
+  </footer>
+
+  <script src="js/notion.js"></script>
+  <script src="js/briefs.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Field Report — Global Public Health, Translated</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">The Field Report</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="briefs.html" class="nav-link">Briefs</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contribute.html" class="nav-link">Contribute</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">NYU School of Global Public Health · Student Initiative</div>
+    <h1 class="hero-headline">Global public health,<br><em>translated.</em></h1>
+    <p class="hero-sub">Biweekly research briefs. Written by students. Reviewed by faculty.</p>
+    <p class="hero-body">Public health education is largely American. The research shaping the rest of the world rarely makes it into our classrooms — and when it does, it is rarely made accessible to people outside the field. The Field Report changes that.</p>
+    <div class="hero-actions">
+      <a href="briefs.html" class="btn btn-primary">Read the Latest</a>
+      <a href="about.html" class="btn btn-ghost">About the Project</a>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stat-item">
+      <span class="stat-num" id="stat-briefs">0</span>
+      <span class="stat-label">Briefs Published</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-countries">0</span>
+      <span class="stat-label">Countries Covered</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-writers">5</span>
+      <span class="stat-label">Student Writers</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num" id="stat-reviewers">4</span>
+      <span class="stat-label">Faculty Reviewers</span>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section">
+    <div class="section-header">
+      <span class="eyebrow">Global Reach</span>
+      <h2>Where we're reporting from</h2>
+    </div>
+    <div class="map-container">
+      <iframe id="map-iframe" src="map.html" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </section>
+
+  <!-- LATEST BRIEFS -->
+  <section class="latest-section">
+    <div class="section-header">
+      <span class="eyebrow">Latest Briefs</span>
+      <h2>Recent publications</h2>
+      <a href="briefs.html" class="section-link">View all briefs →</a>
+    </div>
+    <div class="briefs-grid" id="latest-briefs">
+      <div class="loading-state">Loading briefs...</div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="section-header">
+      <span class="eyebrow">The Process</span>
+      <h2>How it works</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="step-num">01</span>
+        <h3>Select a paper</h3>
+        <p>A student picks a peer-reviewed paper from any country — often one connected to their own background or interests.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">02</span>
+        <h3>Write the brief</h3>
+        <p>400–600 words connecting the research to their concentration, using a job-relevant tool — Power BI, Tableau, GIS, and more.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">03</span>
+        <h3>Faculty review</h3>
+        <p>A faculty member in the relevant department reviews for accuracy before the brief is published.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">04</span>
+        <h3>Published portfolio</h3>
+        <p>The student's name, program, and faculty reviewer are credited publicly — a real writing sample for job applications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-logo">The Field Report</span>
+      <span class="footer-sub">NYU School of Global Public Health · Student Initiative</span>
+    </div>
+    <div class="footer-right">
+      <p>Briefs represent student academic work, faculty reviewed.<br>Not peer-reviewed journal publications.</p>
+    </div>
+  </footer>
+
+  <script src="js/notion.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
