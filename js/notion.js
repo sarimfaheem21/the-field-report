@@ -4,11 +4,8 @@
 // ============================================
 
 const NOTION_CONFIG = {
-  // Your Notion integration token (starts with ntn_ or secret_)
-  TOKEN: 'YOUR_NOTION_TOKEN_HERE',
-  // Your Briefs database ID
+  TOKEN: '',
   DATABASE_ID: '36566d9b3bc780aea66ae1a74c9552bc',
-  // Proxy URL — see README for setup instructions
   PROXY: 'https://fieldreport.sf3365.workers.dev/notion'
 };
 
