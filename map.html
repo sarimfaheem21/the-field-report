@@ -96,14 +96,19 @@
     }
 
     // Geocode country name to lat/lng
-    async function geocodeCountry(country) {
-      try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(country)}&format=json&limit=1`);
-        const data = await res.json();
-        if (data.length > 0) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-      } catch(e) {}
-      return null;
-    }
+    async function geocodeCountry(location) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`,
+      { headers: { 'User-Agent': 'TheFieldReport/1.0' } }
+    );
+    const data = await res.json();
+    if (data.length > 0) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+  } catch(e) {
+    console.error('Geocode failed for:', location, e);
+  }
+  return null;
+}
 
     async function loadMap() {
       const briefs = await fetchBriefs();
