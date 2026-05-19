@@ -22,7 +22,7 @@ async function fetchBriefs() {
       },
       body: JSON.stringify({
         filter: {
-          property: 'Status',
+          property: 'Select',
           select: { equals: 'Published' }
         },
         sorts: [{ property: 'Date', direction: 'descending' }]
