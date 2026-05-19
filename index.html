@@ -56,14 +56,15 @@
     </div>
   </section>
 
-  <!-- MAP -->
+<!-- MAP -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <section class="map-section">
     <div class="section-header">
       <span class="eyebrow">Global Reach</span>
       <h2>Where we're reporting from</h2>
     </div>
     <div class="map-container">
-      <iframe id="map-iframe" src="map.html" frameborder="0" scrolling="no"></iframe>
+      <div id="map" style="width:100%;height:420px;background:#0D1B2A;"></div>
     </div>
   </section>
 
@@ -120,7 +121,61 @@
     </div>
   </footer>
 
-  <script src="js/notion.js"></script>
+<script src="js/notion.js"></script>
   <script src="js/home.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map', { center: [15, 20], zoom: 2, zoomControl: true, scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    setTimeout(() => {
+      const pane = document.querySelector('.leaflet-tile-pane');
+      if (pane) pane.style.filter = 'invert(1) hue-rotate(180deg) brightness(0.6) saturate(0.4)';
+    }, 1000);
+    function makeMarker(count) {
+      const size = count > 2 ? 18 : 12;
+      return L.divIcon({
+        className: '',
+        html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:#C9A84C;border:2px solid #F5F0E8;box-shadow:0 0 12px rgba(201,168,76,0.5);"></div>`,
+        iconSize: [size, size], iconAnchor: [size/2, size/2]
+      });
+    }
+    async function geocodeLocation(location) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`, {
+          headers: { 'User-Agent': 'TheFieldReport/1.0' }
+        });
+        const data = await res.json();
+        if (data.length > 0) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+      } catch(e) {}
+      return null;
+    }
+    async function loadMap() {
+      const briefs = await fetchBriefs();
+      const parsed = briefs.map(parseBrief).filter(b => b.country);
+      const byLocation = {};
+      parsed.forEach(b => {
+        if (!byLocation[b.country]) byLocation[b.country] = [];
+        byLocation[b.country].push(b);
+      });
+      for (const [location, locationBriefs] of Object.entries(byLocation)) {
+        const coords = await geocodeLocation(location);
+        if (!coords) continue;
+        const popupHTML = locationBriefs.map(b => `
+          <div style="margin-bottom:8px;">
+            <div style="font-family:monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#C9A84C;margin-bottom:4px;">${b.country}</div>
+            <div style="font-size:13px;font-weight:500;color:#F5F0E8;margin-bottom:3px;">${b.title}</div>
+            <div style="font-size:11px;color:rgba(245,240,232,0.5);margin-bottom:6px;">${b.author}</div>
+            <a style="font-family:monospace;font-size:11px;color:#C9A84C;" href="article.html?id=${b.id}">Read brief →</a>
+          </div>
+        `).join('<hr style="border:none;border-top:1px solid rgba(201,168,76,0.15);margin:8px 0;">');
+        L.marker(coords, { icon: makeMarker(locationBriefs.length) })
+          .addTo(map)
+          .bindPopup(popupHTML, { maxWidth: 260 });
+      }
+    }
+    window.addEventListener('load', () => { if (typeof fetchBriefs === 'function') loadMap(); });
+  </script>
 </body>
 </html>
