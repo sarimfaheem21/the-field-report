@@ -67,7 +67,7 @@ function parseBrief(page) {
   const p = page.properties;
   return {
     id: page.id,
-    title: p.Title?.title?.[0]?.plain_text || 'Untitled',
+    title: p.Name?.title?.[0]?.plain_text || 'Untitled',
     author: p.Author?.rich_text?.[0]?.plain_text || '',
     program: p.Program?.rich_text?.[0]?.plain_text || '',
     reviewer: p['Faculty Reviewer']?.rich_text?.[0]?.plain_text || '',
