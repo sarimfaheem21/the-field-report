@@ -125,8 +125,9 @@
   <script src="js/home.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map', { center: [15, 20], zoom: 2, zoomControl: true, scrollWheelZoom: false });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const popupStyle = document.createElement('style');
+    popupStyle.textContent = `.leaflet-popup-content-wrapper{background:#1a2d42;border:1px solid rgba(201,168,76,0.3);border-radius:2px;box-shadow:0 4px 24px rgba(0,0,0,0.5)}.leaflet-popup-tip{background:#1a2d42}.leaflet-popup-close-button{color:rgba(245,240,232,0.5)!important}`;
+    document.head.appendChild(popupStyle); {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
     setTimeout(() => {
