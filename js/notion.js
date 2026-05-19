@@ -67,14 +67,14 @@ function parseBrief(page) {
   const p = page.properties;
   return {
     id: page.id,
-    title: p.Name?.title?.[0]?.plain_text || 'Untitled',
-    author: p.Author?.rich_text?.[0]?.plain_text || '',
-    program: p.Program?.rich_text?.[0]?.plain_text || '',
+    title: p['Title']?.title?.[0]?.plain_text || 'Untitled',
+    author: p['Author']?.rich_text?.[0]?.plain_text || '',
+    program: p['Program']?.rich_text?.[0]?.plain_text || '',
     reviewer: p['Faculty Reviewer']?.rich_text?.[0]?.plain_text || '',
-    country: p.Country?.rich_text?.[0]?.plain_text || '',
-    tags: p.Tags?.multi_select?.map(t => t.name) || [],
-    date: p.Date?.date?.start || '',
-    excerpt: p.Excerpt?.rich_text?.[0]?.plain_text || '',
+    country: p['Location']?.rich_text?.[0]?.plain_text || '',
+    tags: p['Tags']?.multi_select?.map(t => t.name) || [],
+    date: p['Date']?.date?.start || '',
+    excerpt: p['Excerpt']?.rich_text?.[0]?.plain_text || '',
     substack: p['Substack Link']?.url || ''
   };
 }
