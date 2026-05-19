@@ -111,34 +111,37 @@
 }
 
     async function loadMap() {
-      const briefs = await fetchBriefs();
-      const parsed = briefs.map(parseBrief).filter(b => b.country);
+  const briefs = await fetchBriefs();
+  console.log('Briefs loaded:', briefs.length);
+  const parsed = briefs.map(parseBrief).filter(b => b.country);
+  console.log('Briefs with location:', parsed.map(b => b.country));
 
-      // Group by country
-      const byCountry = {};
-      parsed.forEach(b => {
-        if (!byCountry[b.country]) byCountry[b.country] = [];
-        byCountry[b.country].push(b);
-      });
+  const byLocation = {};
+  parsed.forEach(b => {
+    if (!byLocation[b.country]) byLocation[b.country] = [];
+    byLocation[b.country].push(b);
+  });
 
-      for (const [country, countryBriefs] of Object.entries(byCountry)) {
-        const coords = await geocodeCountry(country);
-        if (!coords) continue;
+  for (const [location, locationBriefs] of Object.entries(byLocation)) {
+    console.log('Geocoding:', location);
+    const coords = await geocodeCountry(location);
+    console.log('Result for', location, ':', coords);
+    if (!coords) continue;
 
-        const popupHTML = countryBriefs.map(b => `
-          <div style="margin-bottom:${countryBriefs.length > 1 ? '12px' : '0'}">
-            <div class="popup-country">${b.country}</div>
-            <div class="popup-title">${b.title}</div>
-            <div class="popup-author">${b.author}</div>
-            <a class="popup-link" href="article.html?id=${b.id}">Read brief →</a>
-          </div>
-        `).join('<hr style="border:none;border-top:1px solid rgba(201,168,76,0.15);margin:12px 0;">');
+    const popupHTML = locationBriefs.map(b => `
+      <div style="margin-bottom:${locationBriefs.length > 1 ? '12px' : '0'}">
+        <div class="popup-country">${b.country}</div>
+        <div class="popup-title">${b.title}</div>
+        <div class="popup-author">${b.author}</div>
+        <a class="popup-link" href="article.html?id=${b.id}">Read brief →</a>
+      </div>
+    `).join('<hr style="border:none;border-top:1px solid rgba(201,168,76,0.15);margin:12px 0;">');
 
-        L.marker(coords, { icon: makeMarker(countryBriefs.length) })
-          .addTo(map)
-          .bindPopup(popupHTML, { maxWidth: 260 });
-      }
-    }
+    L.marker(coords, { icon: makeMarker(locationBriefs.length) })
+      .addTo(map)
+      .bindPopup(popupHTML, { maxWidth: 260 });
+  }
+}
 
     loadMap();
   </script>
