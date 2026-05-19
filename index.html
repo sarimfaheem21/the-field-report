@@ -167,7 +167,7 @@
             <div style="font-family:monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#C9A84C;margin-bottom:4px;">${b.country}</div>
             <div style="font-size:13px;font-weight:500;color:#F5F0E8;margin-bottom:3px;">${b.title}</div>
             <div style="font-size:11px;color:rgba(245,240,232,0.5);margin-bottom:6px;">${b.author}</div>
-            <a style="font-family:monospace;font-size:11px;color:#C9A84C;" href="article.html?id=${b.id}">Read brief →</a>
+            <a style="font-family:monospace;font-size:11px;color:#C9A84C;" href="article.html?id=${b.id}" target="_top">Read brief →</a>
           </div>
         `).join('<hr style="border:none;border-top:1px solid rgba(201,168,76,0.15);margin:8px 0;">');
         L.marker(coords, { icon: makeMarker(locationBriefs.length) })
