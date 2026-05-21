@@ -91,7 +91,7 @@ With your actual token and Cloudflare Worker URL.
 1. Create a Google Form with these fields:
    - Name, Program, Email, Paper title & link, Country, Faculty Reviewer, Notes
 2. Get the formResponse URL (see earlier instructions)
-3. Replace `YOUR_GOOGLE_FORM_ACTION_URL` in `contribute.html`
+3. Replace the Google Form URL in `contribute.html`
 4. Replace each `entry.XXXXX` with your actual field IDs
 
 ---
